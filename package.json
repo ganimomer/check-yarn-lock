@@ -1,19 +1,24 @@
 {
-  "name": "enforce-package-json-yarn",
-  "version": "1.0.0",
+  "name": "check-yarn-lock",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "precommit": "./index.js"
-    "test": "npm test"
+    "test": "mocha",
+    "precommit": "node index.js"
   },
+  "bin": "./index.js",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "shelljs": "^0.7.8"
+    "chalk": "^2.1.0",
+    "ramda": "^0.24.1"
   },
   "devDependencies": {
-    "husky": "^0.14.3"
+    "eslint": "^4.4.1",
+    "eslint-config-wix-editor": "^0.4.0",
+    "husky": "^0.14.3",
+    "mocha": "^3.5.0"
   }
 }
