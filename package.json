@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "lint": "eslint . --cache",
     "precommit": "node index.js"
   },
   "bin": "./index.js",
