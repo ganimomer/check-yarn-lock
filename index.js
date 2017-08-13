@@ -7,12 +7,12 @@ const {red} = require('chalk')
 const keysEqual = require('./lib/keysEqual')
 const exec = require('./lib/getOutput')(execSync)
 const {listChangedFiles, getFileAtHEAD} = require('./lib/gitUtil')(exec)
-
+const getCurrentFile = filename => readFileSync(filename, 'utf8')
 const LOCKFILE = 'yarn.lock'
 const PACKAGE_JSON = 'package.json'
 const deps = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies']
 
-const readJson = compose(JSON.parse, readFileSync)
+const readJson = compose(JSON.parse, getCurrentFile)
 const getJsonAtHEAD = compose(JSON.parse, getFileAtHEAD)
 const depsUnchanged = converge(keysEqual(deps), [readJson, getJsonAtHEAD])
 
