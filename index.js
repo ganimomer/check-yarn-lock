@@ -1,20 +1,19 @@
 #!/usr/bin/env node
 "use strict"
-const {existsSync, readFileSync} = require('fs')
+const {existsSync} = require('fs')
 const execSync = require('child_process').execSync
 const {compose, converge, contains} = require('ramda')
 const {red} = require('chalk')
 const keysEqual = require('./lib/keysEqual')
 const exec = require('./lib/getOutput')(execSync)
-const {listChangedFiles, getFileAtHEAD} = require('./lib/gitUtil')(exec)
-const getCurrentFile = filename => readFileSync(filename, 'utf8')
+const {listChangedFiles, getFileAtSource} = require('./lib/gitUtil')(exec)
 const LOCKFILE = 'yarn.lock'
 const PACKAGE_JSON = 'package.json'
 const deps = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies']
 
-const readJson = compose(JSON.parse, getCurrentFile)
-const getJsonAtHEAD = compose(JSON.parse, getFileAtHEAD)
-const depsUnchanged = converge(keysEqual(deps), [readJson, getJsonAtHEAD])
+const getStagedJSON = compose(JSON.parse, getFileAtSource(''))
+const getJsonAtHEAD = compose(JSON.parse, getFileAtSource('HEAD'))
+const depsUnchanged = converge(keysEqual(deps), [getStagedJSON, getJsonAtHEAD])
 
 const files = listChangedFiles()
 if (contains(PACKAGE_JSON, files) &&

@@ -12,11 +12,12 @@ describe('gitUtil', () => {
       assert.deepEqual(gitUtil(exec).listChangedFiles(), [])
     })
   })
-  describe('getFileAtHEAD', () => {
+  describe('getFileAtSource', () => {
      it('should execute the correct command', () => {
        const filename = 'some-file-name'
+       const ref = 'HEAD'
        const exec = cmd => cmd
-       assert.equal(gitUtil(exec).getFileAtHEAD(filename), 'git show HEAD:some-file-name')
+       assert.equal(gitUtil(exec).getFileAtSource(ref, filename), 'git show HEAD:some-file-name')
      })
   })
 })
