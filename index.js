@@ -20,6 +20,6 @@ if (contains(PACKAGE_JSON, files) &&
   !contains(LOCKFILE, files) &&
   existsSync(LOCKFILE) &&
   !depsUnchanged(PACKAGE_JSON)) {
-  console.error(`${red('Error!')}   Do not commit package.json changed without yarn.lock changes`)
+  console.error(`${red('Error!')}   Do not commit package.json changes without yarn.lock changes`)
   process.exitCode = 1
 }
